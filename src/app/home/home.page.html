@@ -1,66 +1,172 @@
-
 <ion-header>
-    <ion-toolbar color="primary">
-        <ion-title text-center>
-          Transporte Universitário
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title text-center *ngIf="slideOneForm">
+      Dados Pessoais
+    </ion-title>
+    <!-- <ion-title text-center *ngIf="slideTwoForm">
+      Endereço
+    </ion-title>
+    <ion-title text-center *ngIf="slideThreeForm">
+      Instituição
+    </ion-title> -->
+  </ion-toolbar>
 </ion-header>
 <ion-content>
 
-    <ion-slides #signupSlider>
+  <ion-slides #signupSlider>
 
-      <ion-slide>
-          <ion-list lines="none">
+    <ion-slide>
+      <ion-list>
 
-              <form [formGroup]="slideOneForm" >
-                <div formGroupName="personalData">
-                  <ion-item>
-                      <ion-label position="floating" slot="start">Nome Completo</ion-label>
-                      <ion-input formControlName="name" type="text"></ion-input>
-                  </ion-item>
-          
-                  <ion-item>
-                      <ion-label position="floating" slot="start">Email</ion-label>
-                      <ion-input formControlName="email" type="text"></ion-input>
-                  </ion-item>
-          
-                  <ion-item>
-                      <ion-label position="floating" slot="start">Cpf</ion-label>
-                      <ion-input formControlName="cpf" type="number"></ion-input>
-                  </ion-item>
-                  <!-- <div class="row" formGroupName="rg">
-                      <div class="form-group col-md-6">
-                        <label class="control-label">RG</label>
-                        <input aria-describedby="addon-right addon-left" type="text" class="form-control" formControlName="number"
-                          placeholder="RG" minlength="2" maxlength="15" autofocus>
-                        <small *ngIf="formNewUser.get('personalData').get('rg').get('number').valid && formNewUser.get('personalData').get('rg').get('number').touched"
-                          class="form-text text-success">{{ 'RG válido' }}</small>
-                        <small *ngIf="!formNewUser.get('personalData').get('rg').get('number').valid && formNewUser.get('personalData').get('rg').get('number').touched"
-                          class="form-text text-danger">{{ 'RG inválido' }}
-                        </small>
-                      </div> -->
-                </div>
-              </form>
-          
-          </ion-list>
-      </ion-slide>
+        <form [formGroup]="slideOneForm">
+          <div formGroupName="personalData">
+            <ion-item>
+              <ion-label position="floating" slot="start">Nome Completo</ion-label>
+              <ion-input formControlName="name" type="text"></ion-input>
+            </ion-item>
 
-      <ion-slide>
+            <ion-item>
+              <ion-label position="floating" slot="start">Email</ion-label>
+              <ion-input formControlName="email" type="text"></ion-input>
+            </ion-item>
 
-      </ion-slide>
+            <ion-item>
+              <ion-label position="floating" slot="start">CPF</ion-label>
+              <ion-input formControlName="cpf" type="number"></ion-input>
+            </ion-item>
+            <div formGroupName="rg" class="divj">
 
-    </ion-slides>
+              <ion-item>
+                <ion-label position="floating" slot="start">RG</ion-label>
+                <ion-input formControlName="number" type="number"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" slot="start">UF</ion-label>
+                <ion-input formControlName="state" type="text"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" slot="start">Data de Expedição</ion-label>
+                <ion-input formControlName="date" type="text"></ion-input>
+              </ion-item>
+            </div>
+            <br><br>
+            <ion-item>
+              <ion-label position="floating" class="text" slot="start">Tipo Sanguíneo</ion-label>
+              <ion-select formControlName="bloodType" placeholder="Informe Aqui">
+                <ion-select-option *ngFor="let bloodType of bloodTypes" [value]="bloodType">{{bloodType}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" slot="start">Nome da Mãe</ion-label>
+              <ion-input formControlName="motherSname" type="text"></ion-input>
+            </ion-item>
+            <ion-item></ion-item>
+            <ion-item>
+              <div formGroupName="phone">
+                <ion-item>
+                  <ion-label position="floating" class="text" slot="start">Telefone: </ion-label>
+                  <ion-select formControlName="name" placeholder="Tipo">
+                    <ion-select-option *ngFor="let phoneType of phoneTypes" [value]="phoneType">{{phoneType}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating" slot="start">Numero </ion-label>
+                  <ion-input formControlName="number_phone" type="text"></ion-input>
+                </ion-item>
+
+              </div>
+            </ion-item>
+
+          </div>
+        </form>
+
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-list lines="none">
+
+        <form [formGroup]="slideTwoForm">
+          <div formGroupName="address">
+            <ion-item>
+              <ion-label position="floating" slot="start">Logadouro </ion-label>
+              <ion-input formControlName="street" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" slot="start">Numero </ion-label>
+              <ion-input formControlName="number" type="number"></ion-input>
+            </ion-item>
+            <ion-item></ion-item>
+            <ion-item>
+              <ion-label position="floating" class="text" slot="start">Cidade </ion-label>
+              <ion-select formControlName="city" placeholder="Selecionar Cidade">
+                <ion-select-option *ngFor="let city of cityResidence" [value]="city">{{city}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <br><br>
+            <ion-item>
+              <ion-label position="floating" class="text" slot="start">Bairro </ion-label>
+              <ion-select formControlName="neighborhood"
+                *ngIf="slideTwoForm.get('address').get('city').value == 'ITAPURA - SP'" placeholder="Escolha um bairro">
+                <ion-select-option *ngFor="let neighborhood of neighborhood[0]" [value]="neighborhood">{{neighborhood}}
+                </ion-select-option>
+              </ion-select>
+              <ion-select formControlName="neighborhood"
+                *ngIf="slideTwoForm.get('address').get('city').value != 'ITAPURA - SP'" placeholder="Escolha um bairro">
+                <ion-select-option *ngFor="let neighborhood of neighborhood[1]" [value]="neighborhood">{{neighborhood}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+        </form>
+
+      </ion-list>
+    </ion-slide>
+    <ion-slide>
+      <ion-list lines="none">
+        <form [formGroup]="slideThreeForm">
+          <div formGroupName="institution">
+
+            <ion-item>
+              <ion-label slot="start">Nome da Instituição </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-select formControlName="name" placeholder="Escolha uma Instituição">
+                <ion-select-option *ngFor="let institution of institutions" [value]="institution">{{institution}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" class="text" slot="start">Cidade </ion-label>
+              <ion-select formControlName="city" placeholder="Escolha uma Cidade">
+                <ion-select-option *ngFor="let city of citysInstitution" [value]="city">{{city}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+
+          </div>
+
+        </form>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-button (click)="prev()"><ion-icon slot="start" name="arrow-back"></ion-icon> Prev</ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button (click)="next()">Next <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
-      </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="prev()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon> Prev
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="next()">Next <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-footer>

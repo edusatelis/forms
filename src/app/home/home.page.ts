@@ -14,7 +14,18 @@ export class HomePage {
   public formNewUser;
   public slideOneForm: FormGroup;
   public slideTwoForm: FormGroup;
+  public slideThreeForm: FormGroup;
   public submitAttemp: boolean = false;
+  public institutions: String[] = [ "UFMS", "IFMS", "AEMS", "FUNEC", "FEA", "FIU", "FIRB", "UNICESUMAR", "SENAI", "UNIVESP"];
+  public bloodTypes: String[] = ["Não sei informar", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+  public phoneTypes: String[] = ["RESIDENCIAL", "CELULAR"];
+  public neighborhood =  new Array(
+    ["Centro"],
+    ["Assentamento Estrela da Ilha", "Bela Vista", "CDHU", "Cinturão Verde", "Ilha Bela", "IPÊ", "Jardim Aeroporto", "Jardim das Paineiras", "Jardim Novo Horizonte", "Morada do Sol", "Morumbi", "Nova Ilha", "Portal da Praia", "Porto", "Recanto das Águas", "Santa Catarina", "Zona Norte", "Zona Rural", "Zona Sul"]
+    );
+  public cityResidence: String[] = ["ILHA SOLTEIRA - SP", "ITAPURA - SP"];
+  public citysInstitution: String[] = ["TRÊS LAGOAS - MS", "PEREIRA BARRETO - SP", "ANDRADINA - SP", "SANTA FÉ DO SUL - SP"];
+
 
   constructor(
     private router: Router, 
@@ -44,6 +55,29 @@ export class HomePage {
         })
       }),
     })
+
+    this.slideTwoForm = new FormGroup({
+      address: new FormGroup({
+        street: new FormControl(null, Validators.required),
+        number: new FormControl(null, [Validators.required, Validators.maxLength(5)]),
+        city: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+        neighborhood: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      }),
+    });
+
+    this.slideThreeForm = new FormGroup({
+
+      institution: new FormGroup({
+        name: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        course: new FormControl(null, Validators.required),
+        startYear: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+        yearTermination: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+
+
+      }),
+
+    })
  
   }
 
@@ -53,6 +87,7 @@ export class HomePage {
 
 prev(){
     this.signupSlider.slidePrev();
+  
 }
 
 save(){
